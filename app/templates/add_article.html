@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}addarticle{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/add_article.css')}}">
+<script src="{{url_for('static',filename='js/add_article.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="add-article">
+    <form action="" method="post">
+        <div class="form-container">
+            <div class="form-group">
+                <textarea id="textarea" rows="28" name="content" placeholder="请输入内容" class="form-control" required="required"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn">立即发布</button>
+            </div>
+            <div class="form-group title">
+                <input type="text" placeholder="请输入标题" name="title" class="form-control" required="required">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="markdown" id="markdown">
+    <h4 style="margin:30px 40px;">Markdown Online Editing, Live Preview...</h4>
+</div>
+
+{% endblock %}

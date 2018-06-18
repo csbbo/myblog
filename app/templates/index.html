@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="decoration-right">
+    <!-- panel1 -->
+    <div class="panel panel-default panel1">
+      <div class="panel-heading">
+        <div class="panel-title">
+            <a href="{{url_for('main.aboutme')}}"><span class="glyphicon glyphicon-user"></span>About Me</a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <image class="avatar" src="{{ url_for('static',filename='images/longmao.jpg') }}" alt="avatar">
+      </div>
+      <div class="panel-bottom">
+        <p>花间一壶酒，独酌无相亲</p>
+      </div>
+    </div>
+    <!-- panel2 -->
+    <div class="panel panel-default panel2">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-tags"></span>
+        Tags
+      </div>
+      <div class="panel-body">
+          <div class="tags">
+              {% for tag in tags %}
+            <li class="tag"><a href="#">{{tag.name}}</a></li>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+    <!-- panel3 -->
+    <div class="panel panel-default panel3">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-file"></span>
+        Online Tool
+      </div>
+      <div class="panel-body">
+          <div class="tags">
+            <li class="tag"><a target="_blank" href="https://regexr.com/">RegExr</a></li>
+            <li class="tag"><a target="_blank" href="https://smallpdf.com/cn/pdf-to-word">pdfToWord</a></li>
+            <li class="tag"><a target="_blank" href="http://mahua.jser.me/">markdown</a></li>
+            <li class="tag"><a target="_blank" href="https://htmlcolorcodes.com/">Picker</a></li>
+          </div>
+      </div>
+    </div>
+</div>
+<!-- path nav -->
+<ol class="breadcrumb">
+  <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+  <li><a href="{{url_for('main.all_article')}}"><span class="glyphicon glyphicon-th-list"></span>Library</a></li>
+</ol>
+
+{% block main_content %}
+
+<!-- articles list in there -->
+<div class="article_index">
+    <!-- left -->
+    <div class="inleft">
+        {% for article in articles %}
+        {% if loop.index <= 3 %}
+        <div class="article">
+            <div class="article_head">
+                <div class="pinglunshu">
+                    <span class="glyphicon glyphicon-apple"></span>
+                </div>
+                <div class="article_title">
+                    <a href="{{url_for('main.article_detail',id=article.id)}}">
+                    {{article.title}}</a></div>
+                <div class="article_time">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    {{article.creat_time.strftime("%Y-%m-%d")}}</div>
+                <div class="articletags">
+                    {% for tag in article.tags %}
+                  <li class="article_tag"><span class="glyphicon glyphicon-tag"></span>{{tag.name}}</li>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="article_body">
+                {{article.content|safe}}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <!-- right -->
+    <div class="inright">
+        {% for article in articles %}
+        {% if loop.index > 3  %}
+        <div class="article">
+            <div class="article_head">
+                <div class="pinglunshu">
+                    <span class="glyphicon glyphicon-apple"></span>
+                </div>
+                <div class="article_title">
+                    <a href="{{url_for('main.article_detail',id=article.id)}}">
+                    {{article.title}}</a></div>
+                <div class="article_time">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    {{article.creat_time.strftime("%Y-%m-%d")}}</div>
+                <div class="articletags">
+                    {% for tag in article.tags %}
+                  <li class="article_tag"><span class="glyphicon glyphicon-tag"></span>{{tag.name}}</li>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="article_body">
+                {{article.content|safe}}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 分页 -->
+<div class="fenye container">
+  <ul class="pagination">
+    {% if current_page == 1 %}
+    <li class="page-item disabled"><a class="page-link" href="">
+         <span aria-hidden="true">&laquo;</span>
+    </a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="{{url_for('main.index',page=current_page-1)}}">
+         <span aria-hidden="true">&laquo;</span>
+    </a></li>
+    {% endif %}
+
+    {% for page in pages %}
+        {% if page == current_page %}
+        <li class="page-item active"><a class="page-link" href="{{url_for('main.index',page=page)}}">{{page}}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{{url_for('main.index',page=page)}}">{{page}}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page == last_page %}
+    <li class="page-item disabled"><a class="page-link" href="">
+        <span aria-hidden="true">&raquo;</span>
+    </a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="{{url_for('main.index',page=current_page+1)}}">
+        <span aria-hidden="true">&raquo;</span>
+    </a></li>
+    {% endif %}
+  </ul>
+</div>
+<!-- footer -->
+<div id="footer">
+    @Copyright (c) 2018 Copyright Holder All Rights Reserved.
+    <br>
+    this is a privaty blog for my writing
+</div>
+<!-- 主内容块 -->
+{% endblock %}
+
+<!-- back to top -->
+<a href="#" class="btn backtop">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+</a>
+{% endblock %}

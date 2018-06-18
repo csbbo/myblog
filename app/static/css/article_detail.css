@@ -1,0 +1,73 @@
+#article_detail{
+    margin: 10px;
+    margin-right: 226px;
+}
+/* article */
+.article{
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+.article_time{
+    text-align: right;
+    font-size: 15px;
+    padding: 5px 10px;
+    margin-left: 82%;
+    margin-bottom: 20px;
+}
+/* switchover */
+.switchover{
+    margin-top: 20px;
+}
+.switchover a{
+    color: black;
+}
+.switchover a:hover{
+    color: black;
+    box-shadow: 0px 1px 10px 1px rgb(80, 84, 80)
+}
+.switchover .pre{
+    float: left;
+    background-color: #ffffff;
+}
+.switchover .next{
+    float: right;
+    background-color: #ffffff;
+}
+/* comment */
+.comment-main{
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+.comment{
+    margin-top: 80px;
+}
+.comment .head{
+    background-color: #6B5594;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: 20px;
+    padding: 10px;
+}
+.comment .username{
+    margin-left: 20px;
+    font-size: 20px;
+    color: rgb(36, 72, 143);
+}
+.comment .avatar{
+    float: left;
+    width: 40px;
+    border-radius: 100px;
+}
+.comment .create_time{
+    float: right;
+}
+.comment .body{
+    background-color: #ffffff;
+    padding: 10px;
+    border-top: 1px solid rgba(164, 164, 164, 0.39)
+}
+.comment .body p{
+    margin-left: 10px;
+}
+/* form */
+.form-group{
+    margin-top: 20px;
+}

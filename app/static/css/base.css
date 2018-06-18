@@ -1,0 +1,43 @@
+body{
+    background-color: #d9d9d9;
+}
+/* nav */
+.nav span{
+    margin-right: 5px;
+}
+#nav{
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    margin: -2px;
+    padding: 3px;
+    z-index: 1030;
+    background-color: #6B5594;
+    border-color: rgb(79, 76, 85)
+}
+#myblog{
+    font-size: 25px;
+    color: #ffffff
+}
+#bs-example-navbar-collapse-1 ul a{
+    font-size: 15px;
+    color: #ffffff;
+}
+#bs-example-navbar-collapse-1 ul a:hover{
+    background-color: #310d5b;
+}
+/* #useravatar:hover{
+    background-color: #310d5b;
+} */
+.content{
+    margin-top: 65px;
+}
+/* <script>
+jQuery(function($) {
+    $('div.mousewheel_example')
+        .bind('mousewheel', function(event, delta) {
+            alert("aaa")
+        });
+});
+</script> */

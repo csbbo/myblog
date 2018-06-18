@@ -1,0 +1,219 @@
+/* decoration in right */
+#decoration-right{
+    float: right;
+    width: 206px;
+    margin: 10px;
+    margin-top: 0px;
+}
+.panel1{
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+.panel .panel-title:hover{
+    background-color: rgba(159, 155, 159, 0.84)
+}
+.panel1 .panel-title{
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+}
+.panel1 .panel-title span{
+    margin-right: 5px;
+}
+.panel1 .panel-title a{
+    text-decoration: none;
+}
+.panel .avatar{
+    width: 180px;
+}
+.panel .panel-heading{
+    text-decoration: none;
+    color: black;
+}
+.panel .panel-bottom{
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid rgba(148, 148, 148, 0.68)
+}
+.panel2 span{
+    margin-right: 3px;
+}
+/*panel2 tags */
+.tags{
+    padding: 5px;
+    font-size: 15px;
+    list-style: none;
+    border-top: 1px solid #ffffff;
+
+}
+.tags li{
+    float: left;
+    margin-right: 5px;
+}
+.tags li a{
+    margin: 3px 0px;
+    color: #555454;
+}
+/* .tags li:hover{
+    box-shadow: 1px 2px 10px 2px rgba(66, 64, 62, 0.82);
+} */
+.panel2{
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+/* breadcrumb */
+.breadcrumb{
+    text-decoration: none;
+    margin: 10px;
+    margin-right: 226px;
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+.breadcrumb span{
+    margin-right: 5px;
+    color: black;
+}
+.breadcrumb li a{
+    color: black;
+    text-decoration: none;
+}
+/* article */
+.article_index{
+    margin: 10px;
+    margin-right: 226px;
+    box-shadow: 0px 1px 5px 0px rgba(115, 111, 111, 0.68);
+}
+.inleft{
+    float: left;
+    width: 50%;
+    margin-bottom: 30px;
+}
+.inright{
+    float: right;
+    width: 49%;
+    margin-bottom: 30px;
+}
+.article_head{
+    text-align: center;
+    color: #ffffff;
+    background-color: #6B5594;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 40px;
+    padding: 20px;
+    margin-top: 20px;
+}
+.pinglunshu{
+    float: right;
+    margin-right: 8%;
+    margin-top: 8px;
+    font-size: 20px;
+    padding: 5px 8px;
+    border-radius: 2px;
+}
+.pinglunshu:hover{
+    box-shadow: 1px 2px 10px 2px rgba(66, 64, 62, 0.82);
+}
+.pinglunshu .glyphicon{
+    font-size: 20px;
+    margin-right: 5px;
+}
+    /* title */
+.article_title a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.article_title{
+    padding-top: 10px;
+    border-radius: 2px;
+    text-align: center;
+    margin: 10px 30% 10px 10%;
+}
+.article .article_title:hover{
+    box-shadow: 1px 2px 10px 2px rgba(66, 64, 62, 0.82);
+}
+/* .article_body{
+    height: 200px;
+    overflow: hidden;
+} */
+    /* article_time */
+.article_time{
+    text-align: right;
+    font-size: 15px;
+    padding: 5px 10px;
+    margin-left: 71%;
+    margin-right: 5%;
+    margin-bottom: 20px;
+    border-radius: 2px;
+}
+.article_time span{
+    margin-right: 5px;
+}
+.article_head .article_time:hover{
+    box-shadow: 1px 2px 10px 2px rgba(66, 64, 62, 0.82);
+}
+
+/* tags */
+.articletags{
+    margin-bottom: 5px;
+    padding: 10px;
+    font-size: 10px;
+    list-style: none;
+    border-top: 1px solid #ffffff;
+}
+.articletags span{
+    margin-right: 3px;
+}
+.articletags li{
+    float: left;
+    padding: 4px 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+.articletags li:hover{
+    box-shadow: 1px 2px 10px 2px rgba(66, 64, 62, 0.82);
+}
+/* article_body */
+.article_body{
+    background-color: #ffffff;
+    font-size: 20px;
+    padding: 10px;
+}
+/* divide pages */
+.fenye{
+    text-align: center;
+    clear:both;
+    margin-bottom: 40px;
+}
+/* footer */
+#footer{
+    background-color: #675c47;
+    color: efe5d0;
+    text-align: center;
+    padding: 15px;
+    font-size: 90%;
+    clear: right;
+    clear: left;
+    margin: -2;
+    margin-bottom: 0px;
+}
+/* back top */
+.backtop{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    background-color: #6B5594;
+    border-radius: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 26px;
+    width: 56px;
+    height: 56px;
+    color: #ffffff;
+    font-size: 22px;
+}
+.backtop:hover{
+    box-shadow: 0 3px 10px rgba(0,0,0,0.23), 0 3px 10px rgba(0,0,0,0.16);
+    color: #ffffff;
+}
+.backtop:visited{
+    color: #ffffff;
+}

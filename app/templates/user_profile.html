@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/user_profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <div class="picture">
+        <img class="avatar" src="{{fileurl|default('https://avatars1.githubusercontent.com/u/35909137?s=460&v=4')}}" alt="avatar">
+        <h4>chen</h4>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input class="upload" type="file" name="avatar">
+            <button class="btn" type="submit">上传头像</button>
+        </form>
+    </div>
+    <div class="description">
+        there are something description aboutme
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+
+body{
+    background-color: #ffffff;
+}
+.profile{
+    margin: 100px 10%;
+}
+.picture{
+    float: left;
+    width: 180px;
+}
+.avatar{
+    width: 180px;
+    border-radius: 5px;
+}
+.picture h4{
+    color: rgb(95, 90, 96)
+}
+.picture .upload{
+    margin-top: 20px;
+    padding: 5px;
+}
+.picture .btn{
+    margin-top: 20px;
+    width: 180px;
+}
+.picture .btn:hover{
+    box-shadow: 0px 1px 5px 0px rgba(102, 102, 102, 0.74)
+}
+/* 浮动 */
+.description{
+    float: left;
+    margin-left: 5%;
+    width: 300px;
+}

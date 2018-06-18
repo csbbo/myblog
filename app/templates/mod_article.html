@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}addarticle{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/mod_article.css')}}">
+<script src="{{url_for('static',filename='js/mod_article.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="add-article">
+    <form action="" method="post">
+        <div class="form-container">
+            <div class="form-group">
+                <textarea id="textarea" rows="28" name="content" placeholder="请输入内容" class="form-control" required="required">{{article.content}}</textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn">立即修改</button>
+            </div>
+            <div class="form-group title">
+                <input type="text" placeholder="{{article.title}}" name="title" class="form-control" value="{{article.title}}" required="required">
+            </div>
+        </div>
+    </form>
+    <div class="articletag">
+        <ul>
+            {% for tag in article.tags %}
+            <li style="color:rgb(108, 53, 145)">
+                <span class="glyphicon glyphicon-tag" style="margin-right:5px;">
+                </span>
+                {{tag.name}}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="floattoright">
+    <div class="markdown" id="markdown">
+        <h4 style="margin:30px 40px;">Markdown Online Editing, Live Preview...</h4>
+    </div>
+    <div class="tagtoarticle">
+        <ul>
+            {% for tag in tags %}
+            <li class="articleid" value="{{article.id}}"><button class="articleaddtag" value="{{tag.id}}"><span class="glyphicon glyphicon-tag" style="margin-right:5px;"></span>{{tag.name}}</button></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

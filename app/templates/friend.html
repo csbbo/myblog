@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block title %}友情链接{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/friend.css') }}">
+{% endblock %}
+
+{% block main_content %}
+<!-- article list -->
+<div class="friend-link">
+    <h1>友情链接<span class="badge badge-pill badge-default">{{friends|length}}</span></h1>
+    <ul>
+        {% for friend in friends %}
+        <li>
+            <a target="_blank" href="{{friend.url}}" class="friendname">{{friend.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}关于我{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/friend.css') }}"> -->
+{% endblock %}
+
+{% block content %}
+<!-- aboutme -->
+<div class="aboutme">
+    <h1>个人介绍:</h1>
+    <p class="detail">暂时没想好要写啥，所以就先这样吧</p>
+    <div class="callme">
+        <p><strong>qq:</strong>NTk5ODgzNTE5Cg==</p>
+        <p><strong>tel:</strong>MTM5Nzg5MDE3NjcK</p>
+    </div>
+</div>
+<style>
+body{
+    background-color: #ffffff;
+}
+.aboutme{
+    margin: 50px;
+    margin-top: 80px;
+    margin-bottom: 5px;
+}
+.aboutme h1{
+    color: #000000;
+}
+.detail{
+    margin: 30px;
+    margin-bottom: 0px;
+}
+.callme{
+    margin: 30px;
+    margin-left: 87%;
+    margin-top: 400px;
+}
+</style>
+{% endblock %}

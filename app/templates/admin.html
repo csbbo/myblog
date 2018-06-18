@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}manage{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<script>
+    function addTag(){
+        var r=confirm("Are you sure to add the tag?");
+        if(r==true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    function addFriend(){
+        var r=confirm("Are you sure to add this friend link?");
+        if(r==true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>
+
+<!-- do with article -->
+<div class="articles">
+    <div class="add-article">
+        <a class="btn" href="{{url_for('main.add_article')}}">添加文章&nbsp({{articles|length}})</a>
+    </div>
+    <div class="mod-article">
+        <ul>
+            {% for article in articles %}
+            <li>{{article.title}}<a href="{{url_for("main.mod_article",id=article.id)}}">修改</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<!-- 一些小功能集合块 -->
+<div class="something">
+    <!-- add tag -->
+    <div class="addtagform">
+        <h4 style="color:#6a2c9a;margin-left:10px;">标签:</h4>
+        <form action="/tag/" method="post" onsubmit="return addTag()">
+            <input placeholder="Tag" name="addtag" class="form-control addtag" required="required"></input>
+            <button type="submit" class="comment_now btn">添加</button>
+        </form>
+    </div>
+
+    <!-- add friend link -->
+    <div class="addfriend">
+        <h4 style="color:#6a2c9a;margin-left:10px;">友链:</h4>
+        <form action="/friendlink/" method="post" onsubmit="return addFriend()">
+            <input placeholder="友链名称" type="text" class="form-control" name="friend" required="required"/>
+            <input placeholder="友链URL" type="url" class="form-control" name="url" required="required"/>
+            <button type="submit" class="friendbtn btn">添加</button>
+        </form>
+    </div>
+    <!-- users -->
+    <h4 style="color:#6a2c9a;margin-left:10px;">所有用户({{users|length}})</h4>
+    <div class="users">
+
+        <ul>
+            {% for user in users %}
+            <li>{{user.username}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

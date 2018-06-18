@@ -1,0 +1,85 @@
+{% extends "index.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/article_detail.css') }}">
+{% endblock %}
+
+{% block main_content %}
+<!-- articles in there -->
+<div id="article_detail">
+    <div class="article">
+        <div class="article_head">
+            <div class="pinglunshu">
+                <span class="glyphicon glyphicon-apple"></span>{{comments|length}}
+            </div>
+            <div class="article_title">
+                <a href="{{url_for('main.article_detail',id=article.id)}}">
+                {{article.title}}</a></div>
+            <div class="article_time">
+                <span class="glyphicon glyphicon-calendar"></span>
+                {{article.creat_time.strftime("%Y-%m-%d %H:%M:%S")}}</div>
+            <div class="articletags">
+                {% for tag in article.tags %}
+              <li class="article_tag"><span class="glyphicon glyphicon-tag"></span>{{tag.name}}</li>
+              {% endfor %}
+            </div>
+        </div>
+        <div class="article_body">
+            {{article.content|safe}}
+        </div>
+    </div>
+
+    <!-- switch article -->
+    <div class="switchover">
+        {% if f_article %}
+        <a href="{{url_for('main.article_detail',id=f_article.id)}}" class="btn pre">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            {{f_article.title}}</a>
+        {% endif %}
+        {% if n_article %}
+        <a href="{{url_for('main.article_detail',id=n_article.id)}}" class="btn next">
+            {{n_article.title}}
+            <span class="glyphicon glyphicon-arrow-right"></span></a>
+        {% endif %}
+    </div>
+
+    <!-- comment -->
+    <div class="comment">
+        <form action="" method="post">
+            <div class="form-group">
+              <label for="comment">评论:</label>
+              <input name="comment" class="form-control" required="required" placeholder="在这里输入评论内容"></input>
+              <br>
+              <button type="submit" class="comment_now btn btn-primary">立即评论</button>
+            </div>
+        </form>
+        <div id="conment-main" class="comment-main">
+            <div class="head">
+                <span>Comment</span>&nbsp
+                <span class="glyphicon glyphicon-send"></span>
+                <span>({{comments|length}})</span>
+            </div>
+            {% if comments %}
+                {% for comment in comments %}
+                <div class="body">
+                    <div class="answer-info">
+                        <img class="avatar" src="{{comment.user.avatar_url | default('https://avatars1.githubusercontent.com/u/35909137?s=460&v=4')}}">
+                        <span class="username">{{comment.user.username}}</span>
+                        <span class="create_time">{{comment.creat_time.strftime("%Y-%m-%d")}}</span>
+                    </div>
+                    <p style="margin-left:50px;margin-top:10px;">{{comment.content}}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                    <div class="body">
+                        <p>这里还没有评论＠_＠</p>
+                    </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+#textarea{
+    background-color: rgb(54, 57, 57);
+    color: #ffffff;
+}
+.add-article{
+    float: left;
+    width: 50%;
+    margin-right: 1px;
+}
+.add-article .title{
+    margin-right: 100px;
+}
+.add-article .btn{
+    float: right;
+    color: #ffffff;
+    background-color: rgb(120, 67, 133)
+}
+.markdown{
+    overflow: scroll;
+    float: left;
+    width: 49%;
+    height: 573px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: rgb(117, 112, 110);
+}
