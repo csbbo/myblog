@@ -10,8 +10,7 @@ body{
     right: 0;
     left: 0;
     top: 0;
-    margin: -2px;
-    padding: 3px;
+    border-radius: 0;
     z-index: 1030;
     background-color: #6B5594;
     border-color: rgb(79, 76, 85)
@@ -27,17 +26,63 @@ body{
 #bs-example-navbar-collapse-1 ul a:hover{
     background-color: #310d5b;
 }
-/* #useravatar:hover{
+/* 头像list */
+.avatar_li{
+    height: 51px;
+    margin-right: 20px;
+}
+.avatar_li:hover{
     background-color: #310d5b;
-} */
+}
+.avatar_li img{
+    border-radius:100px;
+    width:35px;
+    height: 35px;
+    margin: auto 10px;
+    margin-top:7px;
+}
+.sub{
+    width: 120px;
+    list-style: none;
+    background-color:#ffffff;
+    position: absolute;
+    z-index: 100%;
+    display: none;
+    margin-top: 10px;
+    padding: 0px;
+    box-shadow: 1px 1px 5px 0px rgb(150, 150, 150)
+}
+.sub li{
+    text-align: center;
+    padding: 10px 0px;
+}
+.sub li:hover{
+    background-color: rgba(188, 189, 196, 0.85)
+}
+.avatar_li:hover .sub{
+    display: block;
+}
+/* 隐藏的注销list */
+.sub a{
+    text-decoration: none;
+    font-size: 17px !important;
+    color: black !important;
+}
+.sub a:hover{
+    background-color: #c6c7cd !important;
+}
+/* 搜索框 */
+.search{
+    width: 100px;
+    background-color: #6B5594;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    border-bottom-color: #b5aeae;
+    color: #ffffff;
+}
+/* 内容 */
 .content{
     margin-top: 65px;
 }
-/* <script>
-jQuery(function($) {
-    $('div.mousewheel_example')
-        .bind('mousewheel', function(event, delta) {
-            alert("aaa")
-        });
-});
-</script> */

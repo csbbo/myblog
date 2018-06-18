@@ -37,19 +37,33 @@
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
+          <!-- 若用户存在 -->
         {% if user %}
             <!-- 若无头像则显示名字 -->
             {% if user.avatar_url %}
-        <li><img src="{{user.avatar_url}}" id="useravatar"style="border-radius:100px;width:35px;margin-top:7px;"></li>
+        <li class="avatar_li"><img src="{{user.avatar_url}}" id="useravatar">
+            <ul class="sub">
+                <li><a href="{{url_for('main.profile')}}">{{ user.username }}</a></li>
+                <li><a href="{{url_for('main.logout')}}">注销</a></li>
+            </ul>
+        </li>
+        <span class="glyphicon glyphicon-search" style="color:#ffffff;margin-top:15px;"></span>
+        <span style="padding:0px;>
+            <form action="" method="post" >
+                <input class="search" type="text" name="search" placeholder="Search">
+            </form>
+        </span>
             {% else %}
-        <li><a href="{{url_for('main.profile')}}">{{ user.username }}</a></li>
+        <li><a href="{{url_for('main.profile')}}">{{user.username}}</a></li>
+        <li><a href="{{url_for('main.logout')}}">注销</a></li>
             {% endif %}
 
-        <li><a href="{{url_for('main.logout')}}">注销</a></li>
         {% else %}
-        <li><a href="{{ url_for('main.login') }}">登录</a></li>
+        <li><a href="{{ url_for('main.login') }}">登录</a>
+        </li>
         <li><a href="{{ url_for('main.regist') }}">注册</a></li>
         {% endif %}
+
       </ul>
     </div>
   </div>

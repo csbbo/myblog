@@ -19,8 +19,10 @@ def uploaded_file(filename):
 # profile
 @main.route('/profile/',methods=['GET','POST'])
 def profile():
+    user = User.query.filter(User.id==g.user.id).first()
+
     if request.method == 'GET':
-        return render_template('user_profile.html')
+        return render_template('user_profile.html',fileurl=user.avatar_url)
     else:
         file = request.files.get('avatar')
         if file and allowed_file(file.filename):
@@ -29,7 +31,6 @@ def profile():
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],filename))
             fileurl=url_for('main.uploaded_file',filename=filename)
 
-            user = User.query.filter(User.id==g.user.id).first()
             user.avatar_url=fileurl
             db.session.add(user)
             db.session.commit()
