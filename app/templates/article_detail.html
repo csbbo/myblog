@@ -56,6 +56,19 @@
               <button type="submit" class="comment_now btn btn-primary">立即评论</button>
             </div>
         </form>
+        <script>
+            $(function(){
+                $(".comment_now").click(function(){
+                    comment=$(".comment_input").val()
+                    $.post("/detail/1/",{comment:comment},function(data,status){
+                        // if(status=="success"){
+                        //     $(".comment").load("chenshaobo");
+                        //     alert("post")
+                        // }
+                    });
+                });
+            });
+        </script>
         <div id="conment-main" class="comment-main">
             <div class="head">
                 <span>Comment</span>&nbsp

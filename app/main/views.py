@@ -102,7 +102,7 @@ def article_detail(id):
             comment = Comment(content=comtent,article_id=id,user_id=g.user.id)
             db.session.add(comment)
             db.session.commit()
-            return redirect(url_for('main.article_detail',id=id))
+            return "success"//评论
         else:
             return redirect(url_for('main.login'))
 
@@ -178,22 +178,7 @@ def logout():
 @main.route('/markdown/',methods=['POST'])
 def markdownedit():
     md=request.form.get('suggest')
-    # html = markdown.markdown(md, output_format='html5', \
-    # extensions=['markdown.extensions.toc',\
-    # WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/',\
-    #     end_url='#Hyperlinks_in_wikis'),\
-    # 'markdown.extensions.sane_lists',\
-    # 'markdown.extensions.codehilite',\
-    # 'markdown.extensions.abbr',\
-    # 'markdown.extensions.attr_list',\
-    # 'markdown.extensions.def_list',\
-    # 'markdown.extensions.fenced_code',\
-    # 'markdown.extensions.footnotes',\
-    # 'markdown.extensions.smart_strong',\
-    # 'markdown.extensions.meta',\
-    # 'markdown.extensions.nl2br',\
-    # 'markdown.extensions.tables'])
-    html = markdown.markdown(md)
+    html = markdown.markdown(md,extensions=['markdown.extensions.tables'])
     return html
 
 # before_request
