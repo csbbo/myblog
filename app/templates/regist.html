@@ -4,35 +4,108 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static',filename='css/regist.css') }}">
+<script src="{{ url_for('static',filename='js/md5.min.js') }}"></script>
 <script src="{{url_for('static',filename='js/regist.js')}}"></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="registform">
-    <!-- ①application/x-www-form-urlencoded(默认值)
-    ②multipart/form-data -->
+    <br>
+    <div class="login_regist">
+        <a class="login" href="{{ url_for('main.login') }}">登录</a>
+        <a class="regist" href="{{ url_for('main.regist') }}">注册</a>
+    </div>
+    <br><br>
 <form action="" method="post" onsubmit="return validateForm()">
+    <!-- 用户名 -->
   <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="username" class="form-control" required="required" name="username" placeholder="请输入用户名">
+    <input type="username" class="form-control" required="required" name="username" placeholder="你的昵称">
   </div>
+  <!-- 手机号 -->
   <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pwd1" name="password1" placeholder="输入密码" required="required">
+    <input type="tel" id="phone" class="form-control" required="required" name="phone_num" placeholder="手机号码">
   </div>
+  <!-- 手机验证码 -->
+  <div class="form-group sms_block">
+    <input type="text" class="form-control sms" required="required" name="sms_code" placeholder="你的验证码">
+    <button type="button" class="btn sms_a" id="sms">发送验证码</button>
+  </div>
+  <!-- 密码 -->
   <div class="form-group">
-    <label for="pwd2">Password:</label>
-    <input type="password" class="form-control" id="pwd2" name="password2" placeholder="确认密码" required="required">
+    <input type="password" class="form-control" id="pwd1" name="password" required="required" placeholder="设置密码">
   </div>
+  <!-- 密码 -->
+  <div class="form-group">
+    <input type="password" class="form-control" id="pwd2" name="password2" required="required" placeholder="确认密码">
+  </div>
+  <!-- 密码不同警示 -->
   <div class="alert alert-danger alert-dismissable" id="passwordwrone">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     两次密码不相同
   </div>
+  <!-- 注册按钮 -->
   <div class="registbtn">
       <button type="submit" class="btn">注册</button>
   </div>
 </form>
-
 </div>
+<style>
+
+</style>
+
+<!-- 倒计时按钮 -->
+<!-- 发送短信验证码 -->
+<script>
+$(function(){//加载完DOM
+    var countdown=0;
+    $('#sms').click(function(){
+        var phone = $('#phone').val();
+        if(phone.length!=11){
+            alert("请输入手机号")
+        }
+        else{
+    		$.post("/sms/",{phone:phone},function(data,status){
+    			alert("验证码已发送");
+    		});
+            countdown=60;
+        }
+    });
+    function settime() {
+        if (countdown == 0) {
+            // val.removeAttribute("disabled");
+            $('#sms').removeAttr("disabled");
+            $('#sms').text("发送验证码");
+
+        } else {
+            // val.setAttribute("disabled", true);
+            $('#sms').attr("disabled",true);
+            $('#sms').text("重新发送("+countdown+")")
+            countdown--;
+        }
+        setTimeout(function() {
+            settime()
+        },1000)
+    }
+    settime();
+});
+</script>
+<!-- md5加密 -->
+<script>
+function validateForm(){
+    var password1 = md5($('#pwd1').val());
+    var password2 = md5($('#pwd2').val());
+    $('#pwd1').val(password1);
+    $('#pwd2').val(password2);
+    if($('#pwd1').val()==$('#pwd2').val())
+    {
+        return true;
+    }
+    else{
+        // 似乎出现异常会返回true
+        $('#passwordwrone').css("display","block");
+        return false;
+    }
+}
+</script>
 {% endblock %}

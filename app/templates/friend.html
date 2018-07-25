@@ -7,6 +7,14 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='css/friend.css') }}">
 {% endblock %}
 
+{%block nav%}
+<!-- 路径导航 -->
+<ol class="breadcrumb">
+  <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+  <li><a href="/friendlist/" style="color:#337ab7">Friends link</a></li>
+</ol>
+{%endblock%}
+
 {% block main_content %}
 <!-- article list -->
 <div class="friend-link">

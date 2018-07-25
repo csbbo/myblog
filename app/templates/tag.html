@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+{{super()}}
+<!-- 使用articlelist样式 -->
+<link rel="stylesheet" href="{{ url_for('static',filename='css/article_list.css') }}">
+{% endblock %}
+
+{%block nav%}
+<!-- 路径导航 -->
+<ol class="breadcrumb">
+  <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+  <li><a href="#" style="color:#337ab7">{{tag}}</a></li>
+</ol>
+{%endblock%}
+
+{% block main_content %}
+<!-- tag列表 -->
+<div class="all-article">
+    <ul>
+        {% for article in articles %}
+        <li>
+            <span class="article-title"><a href="{{url_for('main.article_detail',id=article.id)}}">{{article.title}}</a></span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

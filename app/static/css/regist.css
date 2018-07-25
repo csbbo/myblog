@@ -22,3 +22,51 @@ body{
 #passwordwrone{
     display: none;
 }
+.sms_block{
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+}
+.form-control{
+    height: 40px;
+}
+.sms{
+    border: none;
+    border-radius: 0;
+    outline: none;
+    width: 75%;
+    display: inline;
+    margin-right: 10px;
+}
+.form-control:focus {
+    outline: none;
+    border-color: #d9d9d9;
+    box-shadow: none;
+    border-radius: 5px;
+}
+.sms_a{
+    outline:none !important;
+    box-shadow:none !important;
+}
+.login_regist{
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-left: 35%;
+}
+.login_regist a{
+    text-decoration: none;
+    font-size: 30px;
+    margin: 0px 5px;
+}
+.regist{
+    color: rgb(135, 73, 198)
+}
+.regist:hover{
+    color: rgb(135, 73, 198)
+}
+.login{
+    color: gray;
+}
+.login:hover{
+    color: rgb(84, 85, 82)
+}

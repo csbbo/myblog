@@ -4,8 +4,32 @@
 
 {% block head %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static',filename='css/article_detail.css') }}">
+<!-- use editor.md html to markdown -->
+<!--引入样式文件,影响全局css暂时注释掉-->
+<!-- <link rel="stylesheet" href="{{url_for('static',filename='editor/examples/css/style.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='editor/css/editormd.preview.css')}}" /> -->
+<!--引入js文件-->
+<!-- <script src="{{url_for('static',filename='editor/examples/js/jquery.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/marked.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/prettify.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/raphael.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/underscore.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/sequence-diagram.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/flowchart.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/jquery.flowchart.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/editormd.js')}}"></script> -->
+<!-- editor -->
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/article_detail.css')}}">
 {% endblock %}
+
+{%block nav%}
+<!-- 路径导航 -->
+<ol class="breadcrumb">
+  <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+  <li><a href="/detail/{{article.id}}" style="color:#337ab7">{{article.title}}</a></li>
+</ol>
+{%endblock%}
 
 {% block main_content %}
 <!-- articles in there -->
@@ -20,25 +44,32 @@
                 {{article.title}}</a></div>
             <div class="article_time">
                 <span class="glyphicon glyphicon-calendar"></span>
-                {{article.creat_time.strftime("%Y-%m-%d %H:%M:%S")}}</div>
+                {{article.creat_time.strftime("%Y-%m-%d")}}</div>
             <div class="articletags">
-                {% for tag in article.tags %}
+              {% for tag in article.tags %}
               <li class="article_tag"><span class="glyphicon glyphicon-tag"></span>{{tag.name}}</li>
               {% endfor %}
             </div>
         </div>
+
+        <!-- 转换前的html -->
+
         <div class="article_body">
-            {{article.content|safe}}
+            <iframe onload="changeFrameHeight()" src="{{url_for('main.subiframe',id=article.id)}}" marginheight="0" marginwidth="0" \
+                id="iframe" scrolling="yes" frameborder="0" width="100%" height="500px">
+            </iframe>
         </div>
     </div>
 
-    <!-- switch article -->
+    <!-- 切换到上、下篇文章 -->
     <div class="switchover">
+        <!-- 上一篇文章 -->
         {% if f_article %}
         <a href="{{url_for('main.article_detail',id=f_article.id)}}" class="btn pre">
             <span class="glyphicon glyphicon-arrow-left"></span>
             {{f_article.title}}</a>
         {% endif %}
+        <!-- 下一篇文章 -->
         {% if n_article %}
         <a href="{{url_for('main.article_detail',id=n_article.id)}}" class="btn next">
             {{n_article.title}}
@@ -46,29 +77,22 @@
         {% endif %}
     </div>
 
-    <!-- comment -->
+    <!-- 评论模块 -->
     <div class="comment">
-        <form action="" method="post">
-            <div class="form-group">
-              <label for="comment">评论:</label>
-              <input name="comment" class="form-control" required="required" placeholder="在这里输入评论内容"></input>
-              <br>
-              <button type="submit" class="comment_now btn btn-primary">立即评论</button>
-            </div>
-        </form>
-        <script>
-            $(function(){
-                $(".comment_now").click(function(){
-                    comment=$(".comment_input").val()
-                    $.post("/detail/1/",{comment:comment},function(data,status){
-                        // if(status=="success"){
-                        //     $(".comment").load("chenshaobo");
-                        //     alert("post")
-                        // }
-                    });
-                });
-            });
-        </script>
+        <!-- 评论输入框 -->
+        <div class="form-group">
+          <label for="comment">评论:</label>
+          <input name="comment" id="comment_content" class="form-control" required="required" placeholder="在这里输入评论内容"></input>
+          <br>
+          <!-- 判断是否登录 -->
+          {%if user%}
+          <button id="comment_now" class="btn btn-primary">立即评论</button>
+          {%else%}
+          <button id="comment_now" disabled="disabled" class="btn btn-primary">登录后评论</button>
+          {%endif%}
+        </div>
+
+        <!-- 所有评论内容 -->
         <div id="conment-main" class="comment-main">
             <div class="head">
                 <span>Comment</span>&nbsp
@@ -81,7 +105,7 @@
                     <div class="answer-info">
                         <img class="avatar" src="{{comment.user.avatar_url | default('https://avatars1.githubusercontent.com/u/35909137?s=460&v=4')}}">
                         <span class="username">{{comment.user.username}}</span>
-                        <span class="create_time">{{comment.creat_time.strftime("%Y-%m-%d")}}</span>
+                        <span class="create_time">{{comment.creat_time.strftime("%Y-%m-%d %H:%M:%S")}}</span>
                     </div>
                     <p style="margin-left:50px;margin-top:10px;">{{comment.content}}</p>
                 </div>
@@ -92,7 +116,44 @@
                     </div>
             {% endif %}
         </div>
-
     </div>
 </div>
+<script>
+$(document).ready(function(){
+	$("#comment_now").click(function(){
+        var comment = $("#comment_content").val();
+        var articleid = "{{article.id}}";
+        if(comment.length==0){
+            alert("评论内容为空");
+        }
+        else
+        {
+            $.post("/comment",{
+    			comment:comment,
+                article_id:articleid
+    		},
+    		function(data,status){
+                location.reload();//页面重载，似乎是在当前位置
+    			// alert("数据: \n" + JSON.parse(data).status + "\n状态: " + status);
+    		});
+        }
+	});
+});
+</script>
+<!-- html to markdown 脚本-->
+<!-- <script>
+$(function(){
+    var content=$("#html").val();//获取需要转换的内容
+    $("#markdown").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+
+    editormd.markdownToHTML("editorMdView", {
+        htmlDecode: "style,script,iframe", //可以过滤标签解码
+        emoji: true,
+        taskList:true,
+        tex: true,               // 默认不解析
+        flowChart:true,         // 默认不解析
+        sequenceDiagram:true,  // 默认不解析
+    });
+});
+</script> -->
 {% endblock %}

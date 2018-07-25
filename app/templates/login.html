@@ -4,45 +4,23 @@
 
 {% block head %}
 {{ super() }}
-<!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}"> -->
+<link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
 {% endblock %}
 
 {% block content %}
-<style>
-body{
-    background-color: #f1f1f1;
-}
-.loginform{
-    background-color: #ffffff;
-    border-radius: 5px;
-    margin: auto;
-    margin-top: 100px;
-    padding: 20px;
-    width: 500px;
-}
-.form-check{
-    margin-top: 20px;
-}
-.loginbtn{
-    margin-top: 20px;
-    text-align: center;
-}
-.loginform .btn{
-    border-radius: 15px;
-    width: 200px;
-    color: #ffffff;
-    background-color: rgb(74, 53, 107)
-}
-</style>
 <div class="loginform">
-<form action="" method="post">
+    <br>
+    <div class="login_regist">
+        <a class="login" href="{{ url_for('main.login') }}">登录</a>
+        <a class="regist" href="{{ url_for('main.regist') }}">注册</a>
+    </div>
+    <br><br>
+<form action="" method="post" onsubmit="return validateForm()">
   <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="username" class="form-control" required="required" name="username" placeholder="用户名">
+    <input type="username" class="form-control" required="required" name="username" placeholder="你的昵称">
   </div>
   <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" required="required" name="password" placeholder="密码">
+    <input type="password" class="form-control" id="pwd" required="required" name="password" placeholder="密码">
   </div>
   <div class="form-check">
     <label class="form-check-label">
@@ -54,4 +32,12 @@ body{
   </div>
 </form>
 </div>
+<!-- md5加密 -->
+<script>
+function validateForm(){
+    var password = md5($('#pwd').val());
+    $('#pwd').val(password);
+        return true;
+}
+</script>
 {% endblock %}

@@ -1,0 +1,21 @@
+
+body{
+    background-color: #ffffff;
+}
+.aboutme{
+    margin: 50px;
+    margin-top: 80px;
+    margin-bottom: 5px;
+}
+.aboutme h1{
+    color: #000000;
+}
+.detail{
+    margin: 30px;
+    margin-bottom: 0px;
+}
+.callme{
+    margin: 30px;
+    margin-left: 87%;
+    margin-top: 400px;
+}

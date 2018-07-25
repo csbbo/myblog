@@ -9,8 +9,12 @@
 {% block content %}
 <div class="profile">
     <div class="picture">
-        <img class="avatar" src="{{fileurl|default('https://avatars1.githubusercontent.com/u/35909137?s=460&v=4')}}" alt="avatar">
-        <h4>chen</h4>
+        {%if fileurl%}
+        <img class="avatar" src="{{fileurl}}" alt="avatar">
+        {%else%}
+        <img class="avatar" src="{{url_for('static',filename='images/blog_user_avatar.jpg')}}" alt="avatar">
+        {%endif%}
+        <!-- <h4>chen</h4> -->
         <form action="" method="post" enctype="multipart/form-data">
             <input class="upload" type="file" name="avatar">
             <button class="btn" type="submit">上传头像</button>

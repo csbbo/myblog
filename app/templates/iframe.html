@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- use editor.md html to markdown -->
+    <!--引入样式文件,影响全局css暂时注释掉-->
+    <link rel="stylesheet" href="{{url_for('static',filename='editor/examples/css/style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='editor/css/editormd.preview.css')}}" />
+    <!--引入js文件-->
+    <script src="{{url_for('static',filename='editor/examples/js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/marked.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/prettify.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/raphael.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/underscore.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/sequence-diagram.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/flowchart.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/lib/jquery.flowchart.min.js')}}"></script>
+    <script src="{{url_for('static',filename='editor/editormd.js')}}"></script>
+    <!-- editor -->
+</head>
+
+<body>
+    <textarea id="demo1" style="display:none;">{{article.content}}</textarea>
+
+    <div id="testEditorMdview">
+        <textarea id="appendTest" style="display:none;"></textarea>
+    </div>
+
+    <script type="text/javascript">
+    $(function(){
+        var content=$("#demo1").val();//获取需要转换的内容
+        $("#appendTest").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+
+        //转换开始,第一个参数是上面的div的id
+        editormd.markdownToHTML("testEditorMdview", {
+            htmlDecode: "style,script,iframe", //可以过滤标签解码
+            emoji: true,
+            taskList:true,
+            tex: true,               // 默认不解析
+            flowChart:true,         // 默认不解析
+            sequenceDiagram:true,  // 默认不解析
+        });
+    });
+    </script>
+    </body>
+</html>

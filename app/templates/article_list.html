@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/article_list.css') }}">
+{% endblock %}
+
+{%block nav%}
+<!-- 路径导航 -->
+<ol class="breadcrumb">
+  <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+  <li><a href="/articlelist/" style="color:#337ab7">List</a></li>
+</ol>
+{%endblock%}
+
+{% block main_content %}
+<!-- article list -->
+<div class="all-article">
+    <h1>我的所有文章<span class="badge badge-pill badge-default">{{articles|length}}</span></h1>
+    <ul>
+        {% for article in articles %}
+        <li>
+            <span class="creat-tiem">
+                {{article.creat_time.strftime("%Y年%m月%d日")}}
+                &nbsp({%if article.creat_time.weekday() == 0%}
+                      周一
+                      {%elif article.creat_time.weekday() == 1%}
+                      周二
+                      {%elif article.creat_time.weekday() == 2%}
+                      周三
+                      {%elif article.creat_time.weekday() == 3%}
+                      周四
+                      {%elif article.creat_time.weekday() == 4%}
+                      周五
+                      {%elif article.creat_time.weekday() == 5%}
+                      周六
+                      {%else%}
+                      周日
+                      {%endif%})
+            </span>
+            <span class="article-title"><a href="{{url_for('main.article_detail',id=article.id)}}">{{article.title}}</a></span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

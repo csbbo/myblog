@@ -72,6 +72,11 @@
     background-color: rgb(121, 74, 173);
 }
 /* users */
+.users_s{
+    width: 15%;
+    float: left;
+    margin: 5px;
+}
 .users{
     margin-top: 5px;
     padding: 5px;

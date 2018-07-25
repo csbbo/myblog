@@ -1,0 +1,51 @@
+
+body{
+    background-color: #f1f1f1;
+}
+.loginform{
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    width: 500px;
+}
+.form-check{
+    margin-top: 20px;
+}
+.loginbtn{
+    margin-top: 20px;
+    text-align: center;
+}
+.loginform .btn{
+    border-radius: 15px;
+    width: 200px;
+    color: #ffffff;
+    background-color: rgb(74, 53, 107)
+}
+.form-control{
+    height: 40px;
+}
+.login_regist{
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-left: 35%;
+}
+.login_regist a{
+    text-decoration: none;
+    font-size: 30px;
+    margin: 0px 5px;
+}
+.login{
+    color: rgb(135, 73, 198)
+}
+.login:hover{
+    color: rgb(135, 73, 198)
+}
+.regist{
+    color: gray;
+}
+.regist:hover{
+    color: rgb(84, 85, 82)
+}
