@@ -35,7 +35,7 @@ body{
     outline: none;
     width: 75%;
     display: inline;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 .form-control:focus {
     outline: none;
@@ -44,6 +44,7 @@ body{
     border-radius: 5px;
 }
 .sms_a{
+    width: 105px;
     outline:none !important;
     box-shadow:none !important;
 }
@@ -56,7 +57,6 @@ body{
 .login_regist a{
     text-decoration: none;
     font-size: 30px;
-    margin: 0px 5px;
 }
 .regist{
     color: rgb(135, 73, 198)

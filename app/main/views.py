@@ -210,13 +210,13 @@ def logout():
         return redirect(url_for('main.first'))
 
 # 发送短信
-@main.route('/sms/',methods=['POST'])
-def sms():
-    phone = request.form.get('phone')
-    send = {
-        'smsId':requestSmsCode(phone)
-    }
-    return json.dumps(send)
+# @main.route('/sms/',methods=['POST'])
+# def sms():
+#     phone = request.form.get('phone')
+#     send = {
+#         'smsId':requestSmsCode(phone)
+#     }
+#     return json.dumps(send)
 
 @main.route('/markdown/',methods=['GET'])
 def editor():
