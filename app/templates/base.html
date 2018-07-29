@@ -64,11 +64,12 @@
         {% endif %}
         <!-- 文章搜索 -->
         <li>
-        <span class="glyphicon glyphicon-search" style="color:#ffffff;margin-top:15px;"></span>
-        <span style="padding:0px;">
-            <input class="search" type="text" name="search" placeholder="Search">
-        </span>
+        <form class="navbar-form navbar-left" action="{{url_for('main.search')}}" method="get">
+            <input class="search" type="text" name="q" placeholder="Search">
+            <span class="glyphicon glyphicon-search" style="color:#ffffff;margin-top:5px;"></span>
+        </form>
         </li>
+
       </ul>
     </div>
   </div>

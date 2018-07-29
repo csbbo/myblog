@@ -1,6 +1,7 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+from datetime import timedelta
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
@@ -15,9 +16,13 @@ class Config:
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    #图片上传
     UPLOAD_FOLDER = basedir + '/app/static/images/avatar'
     MAX_CONTENT_LENGTH = 16*1024*1024
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+    #session过期时间设置
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
     @staticmethod
     def init_app(app):

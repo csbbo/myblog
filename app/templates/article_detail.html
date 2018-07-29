@@ -4,22 +4,6 @@
 
 {% block head %}
 {{super()}}
-<!-- use editor.md html to markdown -->
-<!--引入样式文件,影响全局css暂时注释掉-->
-<!-- <link rel="stylesheet" href="{{url_for('static',filename='editor/examples/css/style.css')}}" />
-<link rel="stylesheet" href="{{url_for('static',filename='editor/css/editormd.preview.css')}}" /> -->
-<!--引入js文件-->
-<!-- <script src="{{url_for('static',filename='editor/examples/js/jquery.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/marked.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/prettify.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/raphael.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/underscore.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/sequence-diagram.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/flowchart.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/lib/jquery.flowchart.min.js')}}"></script>
-<script src="{{url_for('static',filename='editor/editormd.js')}}"></script> -->
-<!-- editor -->
-
 <link rel="stylesheet" href="{{url_for('static',filename='css/article_detail.css')}}">
 {% endblock %}
 
@@ -51,12 +35,9 @@
               {% endfor %}
             </div>
         </div>
-
-        <!-- 转换前的html -->
-
         <div class="article_body">
             <iframe onload="changeFrameHeight()" src="{{url_for('main.subiframe',id=article.id)}}" marginheight="0" marginwidth="0" \
-                id="iframe" scrolling="yes" frameborder="0" width="100%" height="500px">
+                id="mdiframe" scrolling="yes" frameborder="0" width="100%" height="600px">
             </iframe>
         </div>
     </div>
@@ -141,19 +122,15 @@ $(document).ready(function(){
 });
 </script>
 <!-- html to markdown 脚本-->
-<!-- <script>
-$(function(){
-    var content=$("#html").val();//获取需要转换的内容
-    $("#markdown").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+<button id="button">md</button>
+<script>
+// $(function(){
+//     // $("#loadmd").load("{{url_for('main.subiframe',id=article.id)}}");
+//     $("#button").click(function(){
+//         var div = document.getElementById('mdiframe');
+//         alert(div.clientHeight)
+// 	});
+// });
 
-    editormd.markdownToHTML("editorMdView", {
-        htmlDecode: "style,script,iframe", //可以过滤标签解码
-        emoji: true,
-        taskList:true,
-        tex: true,               // 默认不解析
-        flowChart:true,         // 默认不解析
-        sequenceDiagram:true,  // 默认不解析
-    });
-});
-</script> -->
+</script>
 {% endblock %}

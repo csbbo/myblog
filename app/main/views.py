@@ -10,7 +10,7 @@ from werkzeug import secure_filename
 import json
 from datetime import datetime
 from .sms import requestSmsCode,verifySmsCode
-import types
+from sqlalchemy import or_
 
 # 重定向到分页index 1
 @main.route('/')
@@ -101,8 +101,7 @@ def article_detail(id):
             'n_article':Article.query.get(next),
             'comments':Comment.query.filter(Comment.article_id==id).all(),
             'tags':Tag.query.all(),
-            'tools':Tool.query.all(),
-            'content':Article.query.get(id).content
+            'tools':Tool.query.all()
         }
         return render_template('article_detail.html',**context)
 
@@ -161,6 +160,15 @@ def friend():
 def aboutme():
     return render_template('aboutme.html')
 
+# 查询功能
+@main.route('/search/')
+def search():
+    #?xx=xxx形式
+    q = request.args.get('q')
+    articles = Article.query.filter(or_(Article.title.contains(q),\
+                Article.content.contains(q))).all()
+    return render_template('article_list.html',articles=articles)
+
 # 用户注册
 @main.route('/regist/',methods=['GET','POST'])
 def regist():
@@ -182,7 +190,6 @@ def regist():
                 db.session.add(user)
                 db.session.commit()
                 session['user_id'] = user.id
-                session.permanent = True
                 return redirect(url_for('main.first'))
         else:
             return "smsfail"
@@ -195,10 +202,14 @@ def login():
     else:
         username = request.form.get('username')
         password = request.form.get('password')
+        rememberme = request.form.get('rememberme')
         user = User.query.filter(User.username==username).first()
         if user and user.verify_password(password):
             session['user_id'] = user.id
-            session.permanent = True
+            #如果不指定session过期时间，默认浏览器关闭就自动结束
+            #如果session的permanent属性为True过期时间为31天
+            if rememberme == 'true':
+                session.permanent = True
             return redirect(url_for('main.first'))
         else:
             return redirect(url_for('main.login'))

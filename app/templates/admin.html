@@ -17,7 +17,7 @@
     <div class="mod-article">
         <ul>
             {% for article in articles %}
-            <li>{{article.title}}<a href="{{url_for("main.article_mod",id=article.id)}}">修改</a></li>
+            <li>{{article.id}}.{{article.title}}<a href="{{url_for("main.article_mod",id=article.id)}}">修改</a></li>
             {% endfor %}
         </ul>
     </div>
