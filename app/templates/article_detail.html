@@ -4,12 +4,28 @@
 
 {% block head %}
 {{super()}}
+<!-- use editor.md html to markdown -->
+<!--引入样式文件,影响全局css暂时注释掉-->
+<link rel="stylesheet" href="{{url_for('static',filename='editor/examples/css/style.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='editor/css/editormd.preview.css')}}" />
+<!--引入js文件-->
+<script src="{{url_for('static',filename='editor/examples/js/jquery.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/marked.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/prettify.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/raphael.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/underscore.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/sequence-diagram.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/flowchart.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/lib/jquery.flowchart.min.js')}}"></script>
+<script src="{{url_for('static',filename='editor/editormd.js')}}"></script>
+<!-- 下面是原页面定义css -->
 <link rel="stylesheet" href="{{url_for('static',filename='css/article_detail.css')}}">
 {% endblock %}
 
 {%block nav%}
 <!-- 路径导航 -->
-<ol class="breadcrumb">
+
+<ol id="reset-nav" class="breadcrumb">
   <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
   <li><a href="/detail/{{article.id}}" style="color:#337ab7">{{article.title}}</a></li>
 </ol>
@@ -36,9 +52,16 @@
             </div>
         </div>
         <div class="article_body">
-            <iframe onload="changeFrameHeight()" src="{{url_for('main.subiframe',id=article.id)}}" marginheight="0" marginwidth="0" \
+            <!-- <iframe onload="changeFrameHeight()" src="{{url_for('main.subiframe',id=article.id)}}" marginheight="0" marginwidth="0" \
                 id="mdiframe" scrolling="yes" frameborder="0" width="100%" height="600px">
-            </iframe>
+            </iframe> -->
+            <!-- <div id="loadmd">
+
+            </div> -->
+            <textarea id="demo1" style="display:none;">{{article.content}}</textarea>
+            <div id="testEditorMdview">
+                <textarea id="appendTest" style="display:none;"></textarea>
+            </div>
         </div>
     </div>
 
@@ -61,9 +84,10 @@
     <!-- 评论模块 -->
     <div class="comment">
         <!-- 评论输入框 -->
-        <div class="form-group">
-          <label for="comment">评论:</label>
-          <input name="comment" id="comment_content" class="form-control" required="required" placeholder="在这里输入评论内容"></input>
+        <div id="reset-form-group" class="form-group">
+          <label id="reset-commentname" for="comment">评论:</label>
+          <br>
+          <textarea placeholder="在这里输入评论内容" id="comment_content" name="name" rows="4" cols="120"></textarea>
           <br>
           <!-- 判断是否登录 -->
           {%if user%}
@@ -76,7 +100,7 @@
         <!-- 所有评论内容 -->
         <div id="conment-main" class="comment-main">
             <div class="head">
-                <span>Comment</span>&nbsp
+                <span>Comments</span>&nbsp
                 <span class="glyphicon glyphicon-send"></span>
                 <span>({{comments|length}})</span>
             </div>
@@ -88,7 +112,7 @@
                         <span class="username">{{comment.user.username}}</span>
                         <span class="create_time">{{comment.creat_time.strftime("%Y-%m-%d %H:%M:%S")}}</span>
                     </div>
-                    <p style="margin-left:50px;margin-top:10px;">{{comment.content}}</p>
+                    <p style="margin-left:50px;margin-top:10px;">{{comment.content|safe}}</p>
                 </div>
                 {% endfor %}
             {% else %}
@@ -99,13 +123,15 @@
         </div>
     </div>
 </div>
+
+<!-- 发表评论 -->
 <script>
-$(document).ready(function(){
+$(function(){
 	$("#comment_now").click(function(){
         var comment = $("#comment_content").val();
         var articleid = "{{article.id}}";
         if(comment.length==0){
-            alert("评论内容为空");
+            alert("评论内容不能为空");
         }
         else
         {
@@ -121,16 +147,76 @@ $(document).ready(function(){
 	});
 });
 </script>
-<!-- html to markdown 脚本-->
-<button id="button">md</button>
-<script>
-// $(function(){
-//     // $("#loadmd").load("{{url_for('main.subiframe',id=article.id)}}");
-//     $("#button").click(function(){
-//         var div = document.getElementById('mdiframe');
-//         alert(div.clientHeight)
-// 	});
-// });
 
+<!-- html to markdown-->
+<script>
+// $("#loadmd").load("{{url_for('main.subiframe',id=article.id)}}");
+$(function(){
+    var content=$("#demo1").val();//获取需要转换的内容
+    $("#appendTest").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+
+    //转换开始,第一个参数是上面的div的id
+    editormd.markdownToHTML("testEditorMdview", {
+        htmlDecode: "style,script,iframe", //可以过滤标签解码
+        emoji: true,
+        taskList:true,
+        tex: true,               // 默认不解析
+        flowChart:true,         // 默认不解析
+        sequenceDiagram:true,  // 默认不解析
+    });
+});
 </script>
+<!-- 因为引入的markdown样式影响了原页面样式所以只能在这重写覆盖了 -->
+<style>
+body{
+    background-color: #d9d9d9;
+}
+#reset-nav{
+    text-align: left;
+}
+#reset-form-group{
+    text-align: left;
+}
+#reset-commentname{
+    margin-left: 5px;
+    color: rgb(60, 60, 60);
+    font-size: 18px;
+}
+#comment_now{
+    background-color: #6b5594;
+    padding: 10px 15px;
+    margin-top: 5px;
+}
+#conment-main{
+    text-align: left;
+    color: #333333;
+}
+#comment_content{
+    padding: 8px;
+}
+/* back top */
+.backtop{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    background-color: #6B5594;
+    border-radius: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 26px;
+    width: 56px;
+    height: 56px;
+    color: #ffffff;
+    font-size: 22px;
+}
+.backtop:hover{
+    box-shadow: 0 3px 10px rgba(0,0,0,0.23), 0 3px 10px rgba(0,0,0,0.16);
+    color: #ffffff;
+    background-color: #6b5594;
+}
+.backtop:visited{
+    color: #ffffff;
+}
+</style>
 {% endblock %}
