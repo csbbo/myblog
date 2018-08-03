@@ -67,17 +67,17 @@
 
     <!-- 切换到上、下篇文章 -->
     <div class="switchover">
-        <!-- 上一篇文章 -->
-        {% if f_article %}
-        <a href="{{url_for('main.article_detail',id=f_article.id)}}" class="btn pre">
-            <span class="glyphicon glyphicon-arrow-left"></span>
-            {{f_article.title}}</a>
-        {% endif %}
         <!-- 下一篇文章 -->
-        {% if n_article %}
-        <a href="{{url_for('main.article_detail',id=n_article.id)}}" class="btn next">
-            {{n_article.title}}
+        {% if f_article %}
+        <a href="{{url_for('main.article_detail',id=f_article.id)}}" class="btn next">
+            {{f_article.title}}
             <span class="glyphicon glyphicon-arrow-right"></span></a>
+        {% endif %}
+        <!-- 上一篇文章 -->
+        {% if n_article %}
+        <a href="{{url_for('main.article_detail',id=n_article.id)}}" class="btn pre">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            {{n_article.title}}</a>
         {% endif %}
     </div>
 
